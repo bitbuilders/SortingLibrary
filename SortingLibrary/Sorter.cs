@@ -87,32 +87,66 @@ namespace SortingLibrary
 
         public static void Merge(T[] firstHalf, T[] secondHalf, T[] array)
         {
-            int firstArray = 0;
-            int secondArray = 0;
-            for (int i = 0; i < array.Length; ++i)
+            PrintArray(array);
+            Console.Write("  [");
+            PrintArray(firstHalf);
+            Console.Write("|");
+            PrintArray(secondHalf);
+            Console.Write("]  ");
+            Console.Write("  ---->  ");
+
+            int first = 0;
+            int second = 0;
+            int index = 0;
+            while (first < firstHalf.Length && second < secondHalf.Length)
             {
-                if (firstArray < firstHalf.Length && secondArray < secondHalf.Length)
+                //Console.Write($"Comparing {firstHalf[first]} and {secondHalf[second]}...   ");
+                if (firstHalf[first].CompareTo(secondHalf[second]) <= 0)
                 {
-                    if (firstHalf[firstArray].CompareTo(secondHalf[secondArray]) < 0)
-                    {
-                        array[i] = firstHalf[firstArray++];
-                    }
-                    else if (firstHalf[firstArray].CompareTo(secondHalf[secondArray]) == 0)
-                    {
-                        array[i] = firstHalf[firstArray++];
-                        array[++i] = secondHalf[secondArray++];
-                    }
+                    //Console.WriteLine($"{firstHalf[first]} won!");
+                    array[index] = firstHalf[first];
+                    ++first;
                 }
-                else if (secondArray < secondHalf.Length)
+                else
                 {
-                    array[i] = secondHalf[secondArray++];
+                    //Console.WriteLine($"{secondHalf[second]} won!");
+                    array[index] = secondHalf[second];
+                    ++second;
+                }
+                ++index;
+            }
+            if (first == firstHalf.Length)
+            {
+                for (int i = index; i < array.Length; ++i)
+                {
+                    array[i] = secondHalf[second];
+                    ++second;
                 }
             }
+            else
+            {
+                for (int i = index; i < array.Length; ++i)
+                {
+                    array[i] = firstHalf[first];
+                    ++first;
+                }
+            }
+
+            PrintArray(array);
+            Console.WriteLine();
         }
 
         public static void QuickSort(T[] array)
         {
 
+        }
+
+        public static void PrintArray(IEnumerable<T> array)
+        {
+            foreach (T t in array)
+            {
+                Console.Write(t + ", ");
+            }
         }
     }
 }
