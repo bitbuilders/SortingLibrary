@@ -87,29 +87,18 @@ namespace SortingLibrary
 
         public static void Merge(T[] firstHalf, T[] secondHalf, T[] array)
         {
-            PrintArray(array);
-            Console.Write("  [");
-            PrintArray(firstHalf);
-            Console.Write("|");
-            PrintArray(secondHalf);
-            Console.Write("]  ");
-            Console.Write("  ---->  ");
-
             int first = 0;
             int second = 0;
             int index = 0;
             while (first < firstHalf.Length && second < secondHalf.Length)
             {
-                //Console.Write($"Comparing {firstHalf[first]} and {secondHalf[second]}...   ");
                 if (firstHalf[first].CompareTo(secondHalf[second]) <= 0)
                 {
-                    //Console.WriteLine($"{firstHalf[first]} won!");
                     array[index] = firstHalf[first];
                     ++first;
                 }
                 else
                 {
-                    //Console.WriteLine($"{secondHalf[second]} won!");
                     array[index] = secondHalf[second];
                     ++second;
                 }
@@ -131,14 +120,40 @@ namespace SortingLibrary
                     ++first;
                 }
             }
-
-            PrintArray(array);
-            Console.WriteLine();
         }
 
         public static void QuickSort(T[] array)
         {
+            Quick(array, 0, array.Length);
+        }
 
+        public static void Quick(T[] array, int min, int max)
+        {
+            int pivot = min;
+            // in place
+            for (int i = 0; i < max; ++i)
+            {
+                if (array[i].CompareTo(array[pivot]) < 0)
+                {
+                    for (int j = i; j >= 1; --j)
+                    {
+                        if (array[j].CompareTo(array[j - 1]) < 0)
+                        {
+                            T temp = array[j];
+                            array[j] = array[j - 1];
+                            array[j - 1] = temp;
+                            if (j == pivot) pivot = j - 1;
+                            else if (j - 1 == pivot) pivot = j;
+                        }
+                    }
+                }
+            }
+
+            pivot++;
+            if (max - pivot > 1)
+            {
+                Quick(array, pivot, max);
+            }
         }
 
         public static void PrintArray(IEnumerable<T> array)

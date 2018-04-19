@@ -10,16 +10,16 @@ namespace SortingLibrary
     {
         static void Main(string[] args)
         {
-            int[] ints = new int[10];
+            int[] ints = new int[100];
             FillArrayRandom(ints);
             //ints = new int[10] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
             int[] sorted = ints.OrderBy(x => x).ToArray();
             int[] ints4 = new int[10] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+            int[] ints5 = new int[10] { 5, 9, 8, 2, 6, 10, 4, 3, 7, 1 };
             int[] ints2 = new int[5] { 1, 2, 3, 4, 5 };
             int[] ints3 = new int[5] { 1, 2, 3, 4, 5 };
             PrintArray(ints);
-            //Sorter<int>.Merge(ints2, ints3, ints4);
-            Sorter<int>.MergeSort(ints);
+            Sorter<int>.QuickSort(ints);
             Console.WriteLine();
             PrintArray(ints);
             Console.WriteLine();
