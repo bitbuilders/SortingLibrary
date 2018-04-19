@@ -130,29 +130,32 @@ namespace SortingLibrary
         public static void Quick(T[] array, int min, int max)
         {
             int pivot = min;
-            // in place
-            for (int i = 0; i < max; ++i)
+            int bottom = min + 1;
+            for (int i = min; i < max; ++i)
             {
                 if (array[i].CompareTo(array[pivot]) < 0)
                 {
-                    for (int j = i; j >= 1; --j)
+                    for (int j = i; j >= bottom; --j)
                     {
                         if (array[j].CompareTo(array[j - 1]) < 0)
                         {
                             T temp = array[j];
                             array[j] = array[j - 1];
                             array[j - 1] = temp;
-                            if (j == pivot) pivot = j - 1;
-                            else if (j - 1 == pivot) pivot = j;
+                            if (j - 1 == pivot) pivot = j;
                         }
                     }
+                    bottom++;
                 }
             }
-
-            pivot++;
-            if (max - pivot > 1)
+            
+            if (max - pivot + 1 > 1)
             {
-                Quick(array, pivot, max);
+                Quick(array, pivot + 1, max);
+            }
+            if (pivot - min > 1)
+            {
+                Quick(array, min, pivot);
             }
         }
 
